@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import abspath, dirname, basename, join, exists
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+ROOT_PATH = abspath(dirname(__file__))
+SETTINGS_PATH = dirname(__file__)
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -81,7 +85,14 @@ DATABASES = {
     }
 }
 
-
+TEMPLATE_DIRS = (
+    join(ROOT_PATH, '../k9frontend/templates'),
+)
+STATIC_URL = '/static/'
+STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    join(SETTINGS_PATH, '../k9frontend/static/'),
+)
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
