@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from os.path import abspath, dirname, basename, join, exists
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 ROOT_PATH = abspath(dirname(__file__))
 SETTINGS_PATH = dirname(__file__)
@@ -41,6 +42,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'k9models',
+    'k9frontend',
+    'k9engine',
 )
 
 MIDDLEWARE_CLASSES = (
