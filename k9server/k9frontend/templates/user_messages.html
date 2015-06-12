@@ -1,0 +1,25 @@
+<h2 class="sub-header">Message history for user {{ user }}</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Message</th>
+                  <th>Received Date</th>
+                  <th>User</th>
+                  <th>Polarity</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for message in messages %}
+                <tr>
+                  <td>{{ message.id }}</td>
+                  <td>{{ message.text }}</td>
+                  <td>{{ message.date }}</td>
+                  <td>{{ user }}</td>
+                  <td>{{ message.polarity }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>

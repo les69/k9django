@@ -1,16 +1,27 @@
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template.context import RequestContext
 from django.conf import settings
 from k9models.models import Message
 from k9models.forms import LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 import json
+import simplejson
+from k9frontend.helpers import get_sentiments, get_polarity, convert_date
 
 
 def index(request):
     return render_to_response("index.html", context_instance=RequestContext(request))
+
+@login_required
+def home(request):
+    user_list = User.objects.exclude(username="admin")
+    return render(request, 'mainPage.html', {'users': user_list})
+
 
 
 def login(request):
@@ -26,12 +37,32 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                return  render_to_response("mainPage.html", context_instance=RequestContext(request))
+                return HttpResponseRedirect(reverse('home'))
             else:
                 return render_to_response("login.html", context_instance=RequestContext(request))
         else:
             return render_to_response("login.html", context_instance=RequestContext(request))
 
+
+@login_required
+def get_user_details(request, username):
+    user = User.objects.filter(username=username)[0]
+    messages = Message.objects.filter(user=user)
+
+    jDict = {}
+    jDict['user'] = username
+    dictArray = []
+
+    for message in messages:
+        messDict = {}
+        messDict['id'] = message.pk
+        messDict['text'] = message.message_text
+        messDict['date'] = convert_date(str(message.recv_date))
+        messDict['polarity'] = get_polarity(message.message_text)
+        dictArray.append(messDict)
+
+    jDict['messages'] = dictArray
+    return render(request, 'user_messages.html', jDict)
 
 
 @csrf_exempt
