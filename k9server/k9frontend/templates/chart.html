@@ -1,0 +1,154 @@
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+        <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/Chart.js' %}"></script>
+    <script src="{% static 'js/legend.js' %}"></script>
+
+
+    <title>K9 Main Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/demo.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            pol_dict = {{ pol|safe }};
+            console.log(pol_dict);
+            subj_dict = {{ subj|safe }};
+
+            // Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#myChart").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            var myNewChart = new Chart(ctx);
+
+            var keys = Object.keys(pol_dict);
+            pol = [];
+            subj = [];
+
+            for(var key in pol_dict){
+                pol.push(pol_dict[key]);
+                subj.push(subj_dict[key]);
+            }
+
+            var data = {
+                labels: keys,
+                datasets: [
+                    {
+                        label: "Positivity",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: pol
+                    },
+                    {
+                        label: "Subjectivity",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: subj
+                    }
+                ]
+            };
+            var options = {
+                   scaleStartValue: -1,
+                   scaleOverride: false
+
+
+            }
+            var myLineChart = new Chart(ctx).Line(data, options);
+            legend(document.getElementById('placeholder'), data);
+
+            //var legend = lineChart.generateLegend();
+
+
+
+        });
+    </script>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">K9</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+
+          </ul>
+
+
+          <ul class="nav nav-sidebar">
+            <li><a class="user-link" href=""><b>List of users</b></a></li>
+            {% for user in users %}
+            <li><a class="user-link" href="">{{ user }}</a></li>
+            {% endfor %}
+
+          </ul>
+
+        </div>
+          <div id="message_container" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+              <div class="bs-callout bs-callout-info" id="callout-navbar-breakpoint">
+                  <h4>Chart Page</h4>
+                  <canvas id="myChart" width="1000" height="500"></canvas>
+                  <div id="placeholder"></div>
+
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+
+
+
+  </body>
+</html>

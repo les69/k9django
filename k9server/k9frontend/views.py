@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 import json
 import simplejson
-from k9frontend.helpers import get_sentiments, get_polarity, convert_date
+from k9frontend.helpers import *
 
 
 def index(request):
@@ -64,6 +64,19 @@ def get_user_details(request, username):
     jDict['messages'] = dictArray
     return render(request, 'user_messages.html', jDict)
 
+@login_required
+def get_user_chart(request, username):
+    dates = get_message_dates_by_user(User.objects.filter(username=username)[0])
+
+    polarityDict = {}
+    subjDict = {}
+
+    for date in dates:
+        polarityDict[str(date)] = get_daily_polarity(date)
+        subjDict[str(date)] = get_daily_subjectivity(date)
+
+    return render(request, 'chart.html', {'subj':json.dumps(subjDict), 'pol':json.dumps(polarityDict)})
+
 
 @csrf_exempt
 def add_message(request):
@@ -76,7 +89,7 @@ def add_message(request):
 
         user = User.objects.filter(username=username)[0]
         m = Message.objects.create(message_text=message, user=user)
-        #m.save()
+        m.save()
 
     return render_to_response("index.html", context_instance=RequestContext(request))
 
