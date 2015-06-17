@@ -76,7 +76,7 @@ def add_message(request):
 
         user = User.objects.filter(username=username)[0]
         m = Message.objects.create(message_text=message, user=user)
-        m.save()
+        #m.save()
 
     return render_to_response("index.html", context_instance=RequestContext(request))
 

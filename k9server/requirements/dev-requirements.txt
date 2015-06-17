@@ -1,6 +1,10 @@
-Django==1.8
-decorator==3.4.2
-django-ajaxutils==0.2
+Django==1.8.2
+gnureadline==6.3.3
+ipython==3.1.0
 nltk==3.0.2
-textblob==0.9.0
+stevedore==0.8
+vboxapi==1.0
+virtualenv==1.11.6
+virtualenv-clone==0.2.4
+virtualenvwrapper==3.7.1
 wsgiref==0.1.2
