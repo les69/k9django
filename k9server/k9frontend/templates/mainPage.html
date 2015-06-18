@@ -22,13 +22,20 @@
 
   </head>
 
-  <body>
+  <body id="body" data-user="undefined">
         <script type="text/javascript">
         $(document).ready(function() {
             $('.user-link').bind('click', function (e) {
                 e.preventDefault();
-                var url = "{% url 'get_user_details' '123' %}".replace('123', $(this).text())
+                $('body').data("user", $(this).text());
+                var url = "{% url 'get_user_details' '123' %}".replace('123', $(this).text());
                 $("#message_container").load(url);
+            });
+            $('#chart-link').bind('click', function (e) {
+                e.preventDefault();
+                var url = "{% url 'get_user_chart' '123' %}".replace('123', $("body").data("user"));
+                window.location  = url;
+                //$("#message_container").load(url);
             });
         });
     </script>
@@ -45,9 +52,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a id="chart-link" href="#">Chart</a></li>
+            <li><a href="#">WordList</a></li>
+            <li><a href="#">Alerts</a></li>
             <li><a href="#">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
