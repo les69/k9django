@@ -18,6 +18,7 @@ urlpatterns += patterns('k9frontend.views',
                         url(r'home/(?P<username>\w+)$', 'get_user_details', name='get_user_details'),
                         url(r'user/(?P<username>\w+)/chart$', 'get_user_chart', name='get_user_chart'),
                         url(r'user/(?P<username>\w+)/analysis$', 'get_user_analysis', name='get_user_analysis'),
+                        url(r'user/help', 'help', name='help'),
                         #url(r'^search/(?P<program>\w+)/$', 'search_program', name='search_program'),
                         #url(r'^top/$', 'get_top_results', name='get_top_results'),
 

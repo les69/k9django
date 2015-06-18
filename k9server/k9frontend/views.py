@@ -17,6 +17,11 @@ from k9frontend.helpers import *
 def index(request):
     return render_to_response("index.html", context_instance=RequestContext(request))
 
+
+def help(request):
+    return render_to_response("help.html", context_instance=RequestContext(request))
+
+
 @login_required
 def home(request):
     user_list = User.objects.exclude(username="admin")

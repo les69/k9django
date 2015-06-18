@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+        <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+
+
+
+    <title>K9 Help Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/callout.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">K9 Home</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Help section <span class="sr-only">(current)</span></a></li>
+
+          </ul>
+
+
+        </div>
+          <div id="message_container" class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+              <div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin">
+                  <h4>Frequently Asked Questions index</h4>
+                  <p>In this section you will find helpful information about the service that is given to you. We try to help you
+                  providing a list of answers to common questions.</p><br />
+
+                  <ol>
+                      <li>What is K9?</li>
+                      <li>What is a badword?</li>
+                      <li>What does positivity means?</li>
+                      <li>And subjectivity?</li>
+                      <li>What does the chart shows?</li>
+                  </ol>
+              </div>
+              <div class="bs-callout bs-callout-default" id="callout-navs-tabs-plugin">
+                  <h4>What is K9?</h4>
+                  <p>K9 is a tool for you to control your children from preventing pedophile or online bulling. We allow you to
+                    take a look to what your children does or search while they are surfing on the internet without you. The list below
+                      shows you what we're trying to detect in your children messages.
+                  </p><br />
+
+                  <ul>
+                      <li>Pedophiles</li>
+                      <li>Online bulling</li>
+                      <li>Pornography dependency</li>
+                      <li>Violence search</li>
+                  </ul>
+              </div>
+              <div class="bs-callout bs-callout-danger" id="callout-navs-tabs-plugin">
+                  <h4>What is a badword?</h4>
+                  <p>A <code>badword</code> is a word that usually indicates a <code>bad</code> behaviour. Badwords can be harmless but they're used as indicators
+                      of a particular behaviour, for example the word <b>Porn</b> used many times can suggest a frequent search of porn web related items.
+                      We use a list of badwords to detect the behvaiours shown previously. Some badwords are
+                  </p><br />
+
+                  <ul>
+                      <li>Porn</li>
+                      <li>Nigger</li>
+                      <li>Kill/Die</li>
+                      <li>Hurt</li>
+                  </ul>
+              </div>
+              <div class="bs-callout bs-callout-warning" id="callout-navs-tabs-plugin">
+                  <h4>What is a Positivity?</h4>
+                  <p>Positivity is only a number. Numbers can tell us great things, only if we know what they mean.<br />
+                      Positivity is a number that goes from -1 to 1, where <b>1</b> is the maximum level of positivity and <b>-1</b>
+                      indicates negativity, <b>0</b> is for a neutral situation. This value is given by the positive weight given by words, for
+                      example words like <b>beautiful</b> or <b>amazing</b> has a really high positivity meanwhile <b>hate</b> or <b>awful</b>
+                      are very negative. The final value of a sentence is given by the average of every single word values.<br />
+                      If the level of positivity is decreasing in time, it's better to take actions and analyze what's happening.
+                  </p><br />
+
+              </div>
+              <div class="bs-callout bs-callout-primary" id="callout-navs-tabs-plugin">
+                  <h4>And subjectivity?</h4>
+                  <p>Subjectivity is a value that behaves similarly to positivity, but rather than showing the positivity of a sentence it shows
+                      how it is personal or impersonal.
+                  </p><br />
+
+              </div>
+              <div class="bs-callout bs-callout-success" id="callout-navs-tabs-plugin">
+                  <h4>What does the chart shows?</h4>
+                  <p>The chart shows <code>positivity</code> and <code>subjectivity</code> in the time. Subjectivity gives you very little information
+                      while positivity shows in time the mood of your children. A descending chart means usually means that your children is having a problem
+                      and it's time to take serious actions.
+                  </p><br />
+
+              </div>
+
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+
+
+
+  </body>
+</html>
