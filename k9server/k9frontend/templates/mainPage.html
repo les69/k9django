@@ -37,6 +37,12 @@
                 window.location  = url;
                 //$("#message_container").load(url);
             });
+            $('#analysis-link').bind('click', function (e) {
+                e.preventDefault();
+                var url = "{% url 'get_user_analysis' '123' %}".replace('123', $("body").data("user"));
+                window.location  = url;
+                //$("#message_container").load(url);
+            });
         });
     </script>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -53,7 +59,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a id="chart-link" href="#">Chart</a></li>
-            <li><a href="#">WordList</a></li>
+            <li><a id="analysis-link" href="">WordList</a></li>
             <li><a href="#">Alerts</a></li>
             <li><a href="#">Help</a></li>
           </ul>

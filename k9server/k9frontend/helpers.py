@@ -4,10 +4,72 @@ from textblob import TextBlob
 from k9models.models import Message
 from dateutil.parser import parse
 from sets import Set
+from collections import OrderedDict
+import os
+
+
+module_dir = os.path.dirname(__file__)  # get current directory
+
+
+def get_word_analysis(user):
+
+    words = {}
+    ms_text = ""
+    for message in Message.objects.filter(user=user):
+        ms_text += message.message_text+" "
+
+    blob = TextBlob(ms_text)
+
+    for word in blob.words:
+        words[word] = blob.word_counts[word]
+
+    top_items = OrderedDict()
+    index = 0
+    d_sorted_by_value = OrderedDict(sorted(words.items(), key=lambda x: x[1], reverse=True))
+    #we want only the top 10 used words
+    for k,v in d_sorted_by_value.items():
+        if index > 10:
+            break
+        top_items[k] = v
+        index += 1
+
+    return top_items
+
+
+
+
+
+def get_bad_word_analysis(user):
+    file_path = os.path.join(module_dir, 'badwords.txt')
+    file = open(file_path)
+    lines = file.readlines()
+
+    text = ""
+
+    for item in lines:
+        text += item.strip('\n\r')+" "
+
+    words = {}
+    ms_text = ""
+    for message in Message.objects.filter(user=user):
+        ms_text += message.message_text+" "
+
+
+    blob = TextBlob(ms_text)
+
+    for word in text.split(' '):
+        if blob.word_counts[word] >=1:
+            words[word] = blob.word_counts[word]
+
+    d_sorted_by_value = OrderedDict(sorted(words.items(), key=lambda x: x[1], reverse=True))
+
+    return d_sorted_by_value
+
+
+
 
 
 # like a group by for getting all dates and messages
-
 def get_message_dates_by_user(user):
     m_l = Message.objects.filter(user=user)
     dates = Set()

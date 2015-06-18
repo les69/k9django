@@ -65,6 +65,21 @@ def get_user_details(request, username):
     return render(request, 'user_messages.html', jDict)
 
 @login_required
+def get_user_analysis(request, username):
+
+    user = User.objects.filter(username=username)[0]
+    badwords = get_bad_word_analysis(user)
+    top_words = get_word_analysis(user)
+
+    alert = False
+
+    for key,value in badwords.items():
+        if value > 3:
+            alert = True
+            break
+    return render(request, 'user_analysis.html', {'user':username, 'alert':alert, 'badwords' : badwords, 'topwords':top_words})
+
+@login_required
 def get_user_chart(request, username):
     dates = get_message_dates_by_user(User.objects.filter(username=username)[0])
 
